@@ -16,11 +16,14 @@ export const apiRoutes = [
   { method: "GET" as const, path: "/api/locations/{id}", config: locationApi.findOne },
   { method: "DELETE" as const, path: "/api/locations/{id}", config: locationApi.deleteOne },
 
-  { method: "GET" as const, path: "/api/businesss", config: businessApi.find },
+  { method: "GET" as const, path: "/api/businesss", config: businessApi.findAll }, // changed from find to findAll
   { method: "GET" as const, path: "/api/businesss/{id}", config: businessApi.findOne },
   { method: "POST" as const, path: "/api/locations/{id}/businesss", config: businessApi.create },
   { method: "DELETE" as const, path: "/api/businesss", config: businessApi.deleteAll },
   { method: "DELETE" as const, path: "/api/businesss/{id}", config: businessApi.deleteOne },
+  // might have to change to replace create and findOne
+  { method: "GET" as const, path: "/api/locations/{id}/businesss", config: businessApi.findByLocation },
+  { method: "POST" as const, path: "/api/locations/{id}/businesss", config: businessApi.makeBusiness },
 
   // { method: "POST", path: "/api/businesss/{businessId}/reviews", config: reviewApi.create },
   // { method: "GET", path: "/api/businesss/{businessId}/reviews", config: reviewApi.find },
