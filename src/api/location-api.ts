@@ -2,16 +2,17 @@ import Boom from "@hapi/boom";
 import { IdSpec, LocationArraySpec, LocationSpec, LocationSpecPlus } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { validationError } from "./logger.js";
+import { Request, ResponseToolkit } from "@hapi/hapi";
 
 export const locationApi = {
   find: {
     auth: {
       strategy: "jwt",
     },
-    async handler(request, h) {
+    async handler(request: Request, h: ResponseToolkit) {
       try {
         const locations = await db.locationStore.getAllLocations();
-        return locations;
+        return h.response(locations).code(200);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -26,13 +27,13 @@ export const locationApi = {
     auth: {
       strategy: "jwt",
     },
-    async handler(request, h) {
+    async handler(request: Request, h: ResponseToolkit) {
       try {
         const location = await db.locationStore.getLocationById(request.params.id);
-        if (!location) {
+        if (location === null) {
           return Boom.notFound("No Location with this id");
         }
-        return location;
+        return h.response(location).code(200);
       } catch (err) {
         return Boom.serverUnavailable("No Location with this id");
       }
@@ -48,11 +49,12 @@ export const locationApi = {
     auth: {
       strategy: "jwt",
     },
-    async handler(request, h) {
+    async handler(request: Request, h: ResponseToolkit) {
       try {
+        // could be issue
         const location = request.payload;
         const newLocation = await db.locationStore.addLocation(location);
-        if (newLocation) {
+        if (newLocation !== null) {
           return h.response(newLocation).code(201);
         }
         return Boom.badImplementation("error creating location");

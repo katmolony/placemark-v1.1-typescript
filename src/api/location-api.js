@@ -10,7 +10,7 @@ export const locationApi = {
         async handler(request, h) {
             try {
                 const locations = await db.locationStore.getAllLocations();
-                return locations;
+                return h.response(locations).code(200);
             }
             catch (err) {
                 return Boom.serverUnavailable("Database Error");
@@ -28,10 +28,10 @@ export const locationApi = {
         async handler(request, h) {
             try {
                 const location = await db.locationStore.getLocationById(request.params.id);
-                if (!location) {
+                if (location === null) {
                     return Boom.notFound("No Location with this id");
                 }
-                return location;
+                return h.response(location).code(200);
             }
             catch (err) {
                 return Boom.serverUnavailable("No Location with this id");
@@ -49,9 +49,10 @@ export const locationApi = {
         },
         async handler(request, h) {
             try {
+                // could be issue
                 const location = request.payload;
                 const newLocation = await db.locationStore.addLocation(location);
-                if (newLocation) {
+                if (newLocation !== null) {
                     return h.response(newLocation).code(201);
                 }
                 return Boom.badImplementation("error creating location");
