@@ -1,0 +1,60 @@
+{
+  "name": "placmark-1.0",
+  "version": "0.1.0",
+  "description": "Playtime: a Hapi/node application for managing Playlists",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev:tsc": "tsc --watch",
+    "start": "node src/server.js",
+    "lint": "./node_modules/.bin/eslint . --ext .js",
+    "test": "./node_modules/mocha/bin/_mocha --ui tdd test/**/*.js -exit",
+    "testmodels": "./node_modules/mocha/bin/mocha --ui tdd test/models/**/*.js",
+    "testapi": "./node_modules/mocha/bin/mocha --ui tdd test/api/**/*.js",
+    "dev": "./node_modules/.bin/nodemon src/server.js --ignore 'src/models/json/*.json'"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/hapi__cookie": "^12.0.5",
+    "@types/hapi__inert": "^5.2.10",
+    "@types/hapi__vision": "^5.5.8",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
+    "axios": "^1.6.7",
+    "chai": "^5.1.0",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "mocha": "^10.3.0",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.2.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@adminjs/hapi": "^7.1.0",
+    "@hapi/boom": "^10.0.1",
+    "@hapi/cookie": "^12.0.1",
+    "@hapi/hapi": "^21.3.3",
+    "@hapi/inert": "^7.1.0",
+    "@hapi/vision": "^7.0.3",
+    "adminjs": "^7.7.0",
+    "dotenv": "^16.4.4",
+    "handlebars": "^4.7.8",
+    "hapi-auth-jwt2": "^10.5.1",
+    "hapi-swagger": "^17.2.1",
+    "joi": "^17.12.1",
+    "jsonwebtoken": "^9.0.2",
+    "lowdb": "^7.0.1",
+    "mais-mongoose-seeder": "^1.0.7",
+    "mongoose": "^8.2.0",
+    "uuid": "^9.0.1"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

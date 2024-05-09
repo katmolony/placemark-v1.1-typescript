@@ -1,0 +1,31 @@
+<form class="box" action="/location/{{location._id}}/addbusiness" method="POST">
+  <label>Enter Business Details:</label>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <input class="input" type="text" placeholder="Enter Title" name="title">
+      </div>
+      <div class="field">
+        <input class="input" type="text" placeholder="Enter Address" name="address">
+      </div>
+      <div class="field">
+        <div class="control">
+          <div class="select">
+            <select name="category">
+              <option value="" selected disabled>Select Category</option>
+              <option value="Accommodation">Accommodation</option>
+              <option value="Dining">Dining</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Nightlife">Nightlife</option>
+              <option value="Activities">Activities</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <textarea class="textarea" type="text" placeholder="Enter description" name="description"></textarea>
+  </div>
+  <button class="button is-primary">Add Business</button>
+</form>

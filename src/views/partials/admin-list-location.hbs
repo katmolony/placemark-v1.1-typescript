@@ -1,0 +1,20 @@
+<div class="box box-link-hover-shadow">
+    <h1 class="title">All Locations</h1>
+    {{#each allLocations}}
+    <div class="box box-link-hover-shadow">
+        <h2 class="title">
+            {{title}}
+        </h2>
+        <div class="block">
+            <p><strong>Latitude: </strong>{{lat}}</p>
+            <p><strong>Longitude: </strong>{{lng}}</p>
+        </div>
+
+        <a href="/dashboard/deletelocation/{{_id}}" class="button">
+            <span class="icon is-small">
+                <i class="fas fa-trash"></i>
+            </span>
+        </a>
+    </div>
+    {{/each}}
+</div>

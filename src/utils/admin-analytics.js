@@ -1,0 +1,14 @@
+export const adminAnalytics = {
+    getUserCount(users) {
+        const numUsers = users.length;
+        return numUsers;
+    },
+    getLocationCount(location) {
+        const numlocation = location.length;
+        return numlocation;
+    },
+    getBusinessCount(business) {
+        const numBusiness = business.length;
+        return numBusiness;
+    },
+};

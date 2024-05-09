@@ -1,0 +1,20 @@
+{{> owner-menu active="owner-dashboard"}}
+<div class="card">
+    <div class="card-content">
+        <div class="block">
+            <h2 class="title">Owner Dashboard</h2>
+            <ul>
+                 <p class="title is-4">Welcome {{user.firstName}}</p>
+                <li><i class="fas fa-check"></i> Add your Buisness to our Placemark Locations</li>
+                <li><i class="fas fa-check"></i> Suggest a City to Placemark</li>
+            </ul>
+        </div>
+        <div class="content">
+            {{!-- {{> admin-analytics }} --}}
+        </div>
+    </div>
+</div>
+<section class="section">
+    {{!-- {{> admin-list-user }} --}}
+    {{> list-all-location}}
+    </section>

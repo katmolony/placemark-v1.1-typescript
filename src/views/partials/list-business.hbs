@@ -1,0 +1,32 @@
+{{#each location.businesss}}
+<div class="box box-link-hover-shadow">
+  <div class="content">
+    <h3 class="title">{{title}}</h3>
+    <p><strong>Category:</strong> {{category}}</p>
+    <p><strong>Description:</strong> {{description}}</p>
+    <p><strong>Address:</strong> {{address}}</p>
+    <p><strong>Latitude:</strong> {{lat}}</p>
+    <p><strong>Longitude:</strong> {{lng}}</p>
+  </div>
+  <div class="buttons">
+    <a href="/location/{{../location._id}}/business/{{_id}}" class="button is-link">
+      <span class="icon is-small">
+        <i class="fas fa-folder-open"></i>
+      </span>
+      <span>Open</span>
+    </a>
+    <a href="/location/{{../location._id}}/business/{{_id}}" class="button is-primary">
+      <span class="icon is-small">
+        <i class="fas fa-edit"></i>
+      </span>
+      <span>Edit</span>
+    </a>
+    <a href="/location/{{../location._id}}/deletebusiness/{{_id}}" class="button is-danger">
+      <span class="icon is-small">
+        <i class="fas fa-trash"></i>
+      </span>
+      <span>Delete</span>
+    </a>
+  </div>
+</div>
+{{/each}}
