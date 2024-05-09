@@ -56,13 +56,13 @@ export const businessMongoStore = {
     await BusinessMongoose.deleteMany({});
   },
 
-  async updateBusiness(business: Business, updatedBusiness: Business) {
-    const businessDoc = await BusinessMongoose.findOne({ _id: business._id });
-    businessDoc.title = updatedBusiness.title;
-    businessDoc.category = updatedBusiness.category;
-    // businessDoc.address = updatedBusiness.address;
-    businessDoc.description = updatedBusiness.description;
-    await businessDoc.save();
-  },
+  // async updateBusiness(business: Business, updatedBusiness: Business) {
+  //   const businessDoc = await BusinessMongoose.findOne({ _id: business._id });
+  //   businessDoc.title = updatedBusiness.title;
+  //   businessDoc.category = updatedBusiness.category;
+  //   // businessDoc.address = updatedBusiness.address;
+  //   businessDoc.description = updatedBusiness.description;
+  //   await businessDoc.save();
+  // },
 
 };
