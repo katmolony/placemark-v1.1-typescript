@@ -3,7 +3,7 @@ import { db } from "../models/db.js";
 import { IdSpec, BusinessSpec, BusinessSpecPlus, BusinessArraySpec } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 export const businessApi = {
-    find: {
+    findAll: {
         auth: {
             strategy: "jwt"
         },

@@ -6,7 +6,7 @@ import { Request, ResponseToolkit } from "@hapi/hapi";
 import { Location, Business } from "../types/placemark-types.js";
 
 export const businessApi = {
-  find: {
+  findAll: {
     auth: {
       strategy: "jwt"
     },
