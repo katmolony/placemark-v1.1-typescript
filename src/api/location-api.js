@@ -7,7 +7,7 @@ export const locationApi = {
         auth: {
             strategy: "jwt",
         },
-        async handler(request, h) {
+        handler: async function (request, h) {
             try {
                 const locations = await db.locationStore.getAllLocations();
                 return h.response(locations).code(200);
@@ -25,7 +25,7 @@ export const locationApi = {
         auth: {
             strategy: "jwt",
         },
-        async handler(request, h) {
+        handler: async function (request, h) {
             try {
                 const location = await db.locationStore.getLocationById(request.params.id);
                 if (location === null) {
@@ -47,7 +47,7 @@ export const locationApi = {
         auth: {
             strategy: "jwt",
         },
-        async handler(request, h) {
+        handler: async function (request, h) {
             try {
                 // could be issue
                 const location = request.payload;
@@ -71,7 +71,7 @@ export const locationApi = {
         auth: {
             strategy: "jwt",
         },
-        async handler(request, h) {
+        handler: async function (request, h) {
             try {
                 const location = await db.locationStore.getLocationById(request.params.id);
                 if (location === null) {
@@ -92,7 +92,7 @@ export const locationApi = {
         auth: {
             strategy: "jwt",
         },
-        async handler(request, h) {
+        handler: async function (request, h) {
             try {
                 await db.locationStore.deleteAllLocations();
                 return h.response().code(204);

@@ -2,16 +2,18 @@ import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 import { IdSpec, BusinessSpec, BusinessSpecPlus, BusinessArraySpec } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
+import { Request, ResponseToolkit } from "@hapi/hapi";
+import { Location, Business } from "../types/placemark-types.js";
 
 export const businessApi = {
   find: {
     auth: {
       strategy: "jwt"
     },
-    async handler(request, h) {
+    handler: async function (request: Request, h: ResponseToolkit) {
       try {
         const businesses = await db.businessStore.getAllBusinesss();
-        return businesses;
+        return  h.response(businesses).code(200);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -22,17 +24,18 @@ export const businessApi = {
     notes: "Returns all businesses"
   },
 
+  // might be replaced by findByLocation
   findOne: {
     auth: {
       strategy: "jwt"
     },
-    async handler(request) {
+    handler: async function (request: Request, h: ResponseToolkit) {
       try {
         const business = await db.businessStore.getBusinessById(request.params.id);
-        if (!business) {
+        if (business === null) {
           return Boom.notFound("No business with this id");
         }
-        return business;
+        return h.response(business).code(200);
       } catch (err) {
         return Boom.serverUnavailable("No business with this id");
       }
@@ -44,11 +47,34 @@ export const businessApi = {
     response: { schema: BusinessSpecPlus, failAction: validationError }
   },
 
+    findByLocation: {
+      auth: {
+        strategy: "jwt"
+      },
+      async handler(request: Request, h: ResponseToolkit) {
+        try {
+          const business = await (db.businessStore.getBusinessById(request.params.id)) as Business;
+          if (business === null) {
+            return Boom.notFound("No business with this id");
+          }
+          return h.response(business).code(200);
+        } catch (err) {
+          return Boom.serverUnavailable("No business with this id");
+        }
+      },
+      tags: ["api"],
+      description: "Find a Business",
+      notes: "Returns a business",
+      validate: { params: { id: IdSpec }, failAction: validationError },
+      response: { schema: BusinessSpecPlus, failAction: validationError }
+    },
+
+    // might be replaced by makeBusiness
   create: {
     auth: {
       strategy: "jwt"
     },
-    async handler(request, h) {
+    handler: async function (request: Request, h: ResponseToolkit) {
       try {
         const business = await db.businessStore.addBusiness(request.params.id, request.payload);
         if (business) {
@@ -66,12 +92,41 @@ export const businessApi = {
     response: { schema: BusinessSpecPlus, failAction: validationError }
   },
 
+  makeBusiness: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request: Request, h: ResponseToolkit) {
+      const location = (await db.locationStore.findOne(request.params.id)) as Location;
+      if (location === null) {
+        return Boom.notFound("No location with this id");
+      }
+      const businessPayload = request.payload as Business;
+      const business = {
+        title: businessPayload.title,
+        category: businessPayload.category,
+        description: businessPayload.description,
+        // field taken from axios in controller
+        // address: address,
+        // lat: lat,
+        // lng: lon,
+        address: businessPayload.address,
+        lat: businessPayload.lat,
+        lng: businessPayload.lng,
+       // image: fileContent,
+      };
+      const newBusiness = (await db.businessStore.add(business)) as Business;
+      return h.response(newBusiness).code(200);
+    },
+  },
+
   deleteAll: {
     auth: {
       strategy: "jwt"
     },
-    async handler(request, h) {
+    handler: async function (request: Request, h: ResponseToolkit) {
       try {
+        console.log("delete...");
         await db.businessStore.deleteAllBusinesss();
         return h.response().code(204);
       } catch (err) {
@@ -86,10 +141,10 @@ export const businessApi = {
     auth: {
       strategy: "jwt"
     },
-    async handler(request, h) {
+    handler: async function (request: Request, h: ResponseToolkit) {
       try {
         const business = await db.businessStore.getBusinessById(request.params.id);
-        if (!business) {
+        if (business === null) {
           return Boom.notFound("No Business with this id");
         }
         await db.businessStore.deleteBusiness(business._id);
