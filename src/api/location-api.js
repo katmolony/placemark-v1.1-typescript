@@ -74,7 +74,7 @@ export const locationApi = {
         async handler(request, h) {
             try {
                 const location = await db.locationStore.getLocationById(request.params.id);
-                if (!location) {
+                if (location === null) {
                     return Boom.notFound("No Location with this id");
                 }
                 await db.locationStore.deleteLocationById(location._id);

@@ -69,14 +69,14 @@ export const locationApi = {
     response: { schema: LocationSpecPlus, failAction: validationError },
   },
 
-  deleteOne: {
+  deleteOne: { // different from lectures
     auth: {
       strategy: "jwt",
     },
-    async handler(request, h) {
+    async handler(request: Request, h: ResponseToolkit) {
       try {
         const location = await db.locationStore.getLocationById(request.params.id);
-        if (!location) {
+        if (location === null) {
           return Boom.notFound("No Location with this id");
         }
         await db.locationStore.deleteLocationById(location._id);
@@ -90,11 +90,11 @@ export const locationApi = {
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
-  deleteAll: {
+  deleteAll: { // different from lectures
     auth: {
       strategy: "jwt",
     },
-    async handler(request, h) {
+    async handler(request: Request, h: ResponseToolkit) {
       try {
         await db.locationStore.deleteAllLocations();
         return h.response().code(204);
