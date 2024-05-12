@@ -9,12 +9,12 @@ export const apiRoutes = [
     { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
     { method: "POST", path: "/api/locations", config: locationApi.create },
     { method: "DELETE", path: "/api/locations", config: locationApi.deleteAll },
-    { method: "GET", path: "/api/locations", config: locationApi.find },
+    { method: "GET", path: "/api/locations", config: locationApi.findAll }, // changed from find to findAll
     { method: "GET", path: "/api/locations/{id}", config: locationApi.findOne },
     { method: "DELETE", path: "/api/locations/{id}", config: locationApi.deleteOne },
     { method: "GET", path: "/api/businesss", config: businessApi.findAll }, // changed from find to findAll
-    { method: "GET", path: "/api/businesss/{id}", config: businessApi.findOne },
-    { method: "POST", path: "/api/locations/{id}/businesss", config: businessApi.create },
+    // { method: "GET" as const, path: "/api/businesss/{id}", config: businessApi.findOne },
+    //  { method: "POST" as const, path: "/api/locations/{id}/businesss", config: businessApi.create },
     { method: "DELETE", path: "/api/businesss", config: businessApi.deleteAll },
     { method: "DELETE", path: "/api/businesss/{id}", config: businessApi.deleteOne },
     // might have to change to replace create and findOne
