@@ -3,7 +3,7 @@ import { IdSpec, LocationArraySpec, LocationSpec, LocationSpecPlus } from "../mo
 import { db } from "../models/db.js";
 import { validationError } from "./logger.js";
 export const locationApi = {
-    find: {
+    findAll: {
         auth: {
             strategy: "jwt",
         },
@@ -27,7 +27,8 @@ export const locationApi = {
         },
         handler: async function (request, h) {
             try {
-                const location = await db.locationStore.getLocationById(request.params.id);
+                // const location = await db.locationStore.getLocationById(request.params.id);
+                const location = await db.locationStore.findOne(request.params.id);
                 if (location === null) {
                     return Boom.notFound("No Location with this id");
                 }

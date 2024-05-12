@@ -5,7 +5,7 @@ import { validationError } from "./logger.js";
 import { Request, ResponseToolkit } from "@hapi/hapi";
 
 export const locationApi = {
-  find: {
+  findAll: { //changed from find
     auth: {
       strategy: "jwt",
     },
@@ -29,7 +29,8 @@ export const locationApi = {
     },
     handler: async function (request: Request, h: ResponseToolkit)  {
       try {
-        const location = await db.locationStore.getLocationById(request.params.id);
+        // const location = await db.locationStore.getLocationById(request.params.id);
+        const location = await db.locationStore.findOne(request.params.id);
         if (location === null) {
           return Boom.notFound("No Location with this id");
         }
