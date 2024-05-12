@@ -53,7 +53,7 @@ export const businessApi = {
       },
       async handler(request: Request, h: ResponseToolkit) {
         try {
-          const business = await (db.businessStore.getBusinessById(request.params.id)) as Business;
+          const business = await (db.businessStore.getBusinesssByLocationId(request.params.id)) as Business;
           if (business === null) {
             return Boom.notFound("No business with this id");
           }
@@ -66,7 +66,8 @@ export const businessApi = {
       description: "Find a Business",
       notes: "Returns a business",
       validate: { params: { id: IdSpec }, failAction: validationError },
-      response: { schema: BusinessSpecPlus, failAction: validationError }
+      // Respond with array as there are many businesses
+      response: { schema: BusinessArraySpec, failAction: validationError }, 
     },
 
     // might be replaced by makeBusiness
