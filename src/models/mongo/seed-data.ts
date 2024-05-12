@@ -53,7 +53,7 @@ export const seedData = {
       lat: 100,
       lng: 200,
       weather: "Sunny",
-      temp: 23.5,
+      temp: 30.5,
     },
     italy: {
       title: "Italy",
@@ -61,7 +61,7 @@ export const seedData = {
       lat: 100,
       lng: 200,
       weather: "Sunny",
-      temp: 23.5,
+      temp: 21.5,
     },
     spain: {
       title: "Spain",
@@ -69,7 +69,7 @@ export const seedData = {
       lat: 100,
       lng: 200,
       weather: "Sunny",
-      temp: 23.5,
+      temp: 25.5,
     },
   },
   businesses: {
