@@ -9,15 +9,20 @@ export const locationMongoStore = {
     return locations;
   },
 
-  async getLocationById(id: string): Promise<Location | null> {
-    if (id) {
-      const location = await LocationMongoose.findOne({ _id: id }).lean().populate("business");
-      if (location) {
-        location.businesss = await businessMongoStore.getBusinesssByLocationId(location._id);
-      }
-      return location;
-    }
-    return null;
+  // async getLocationById(id: string): Promise<Location | null> {
+  //   if (id) {
+  //     const location = await LocationMongoose.findOne({ _id: id }).lean().populate("business");
+  //     if (location) {
+  //       location.businesss = await businessMongoStore.getBusinesssByLocationId(location._id);
+  //     }
+  //     return location;
+  //   }
+  //   return null;
+  // },
+
+  async findOne(id: string): Promise<Location | null> {
+    const location = await LocationMongoose.findOne({ _id: id }).lean();
+    return location;
   },
 
   async addLocation(location: Location) {

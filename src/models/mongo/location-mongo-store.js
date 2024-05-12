@@ -1,20 +1,22 @@
-// import { Location } from "./location.js";
-import { businessMongoStore } from "./business-mongo-store.js";
 import { LocationMongoose } from "./location.js";
 export const locationMongoStore = {
     async getAllLocations() {
         const locations = await LocationMongoose.find().lean();
         return locations;
     },
-    async getLocationById(id) {
-        if (id) {
-            const location = await LocationMongoose.findOne({ _id: id }).lean().populate("business");
-            if (location) {
-                location.businesss = await businessMongoStore.getBusinesssByLocationId(location._id);
-            }
-            return location;
-        }
-        return null;
+    // async getLocationById(id: string): Promise<Location | null> {
+    //   if (id) {
+    //     const location = await LocationMongoose.findOne({ _id: id }).lean().populate("business");
+    //     if (location) {
+    //       location.businesss = await businessMongoStore.getBusinesssByLocationId(location._id);
+    //     }
+    //     return location;
+    //   }
+    //   return null;
+    // },
+    async findOne(id) {
+        const location = await LocationMongoose.findOne({ _id: id }).lean();
+        return location;
     },
     async addLocation(location) {
         const newLocation = new LocationMongoose(location);
