@@ -16,7 +16,7 @@ export type User = {
     weather: string;
     userid: User | string;
     // could be wrong
-    businesss?: Business[];
+    // businesss?: Business[];
     _id: string;
   };
   
@@ -29,7 +29,8 @@ export type User = {
     lat: number;
     lng: number;
     category: BusinessCategories[];
-    locationid: Location | string;
+   locationid: Location | string;
+    //locationid: string;
     reviews: Review[];
     _id: string;
   };
