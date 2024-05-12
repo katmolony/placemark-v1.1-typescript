@@ -4,25 +4,28 @@ import { Business } from "../../types/placemark-types.js";
 import { BusinessMongoose } from "./business.js";
 
 export const businessMongoStore = {
-  async getAllBusinesss() : Promise<Business[]> {
+  async getAllBusinesss(): Promise<Business[]> {
     const businesss = await BusinessMongoose.find().lean();
     return businesss;
   },
 
-  async addBusiness(locationId: string, business: Business): Promise<Business | null>  {
+  async addBusiness(locationId: string, business: Business): Promise<Business | null> {
     business.locationid = locationId;
-    const newBusiness = new BusinessMongoose({ ...business});
+    const newBusiness = new BusinessMongoose({ ...business });
     const businessObj = await newBusiness.save();
     return this.getBusinessById(businessObj._id);
   },
 
-  // should id be an object of location
-  async getBusinesssByLocationId(id: string): Promise<Business[]> {
+  async getBusinesssByLocationId(id: string): Promise<Business[] | null> {
     const businesss = await BusinessMongoose.find({ locationid: id }).lean();
+    if (!businesss) {
+      return null;
+    }
+    console.log(businesss);
     return businesss;
   },
 
-  async getBusinessById(id: string): Promise<Business | null>  {
+  async getBusinessById(id: string): Promise<Business | null> {
     if (id) {
       const business = await BusinessMongoose.findOne({ _id: id }).lean();
       if (business) {
@@ -65,4 +68,11 @@ export const businessMongoStore = {
   //   await businessDoc.save();
   // },
 
+  // async findByLocation(id: string): Promise<Business | null> {
+  //   const business = await BusinessMongoose.findOne({ locationid: id });
+  //   if (!business) {
+  //     return null;
+  //   }
+  //   return business;
+  // },
 };

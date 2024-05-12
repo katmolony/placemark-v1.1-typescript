@@ -12,9 +12,12 @@ export const businessMongoStore = {
         const businessObj = await newBusiness.save();
         return this.getBusinessById(businessObj._id);
     },
-    // should id be an object of location
     async getBusinesssByLocationId(id) {
         const businesss = await BusinessMongoose.find({ locationid: id }).lean();
+        if (!businesss) {
+            return null;
+        }
+        console.log(businesss);
         return businesss;
     },
     async getBusinessById(id) {
@@ -55,5 +58,12 @@ export const businessMongoStore = {
     //   // businessDoc.address = updatedBusiness.address;
     //   businessDoc.description = updatedBusiness.description;
     //   await businessDoc.save();
+    // },
+    // async findByLocation(id: string): Promise<Business | null> {
+    //   const business = await BusinessMongoose.findOne({ locationid: id });
+    //   if (!business) {
+    //     return null;
+    //   }
+    //   return business;
     // },
 };
