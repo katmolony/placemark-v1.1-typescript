@@ -114,9 +114,7 @@ export const businessApi = {
                 lng: businessPayload.lng,
                 //locationid: location._id,
             };
-            console.log("sending to businerss store");
             const newBusiness = (await db.businessStore.addBusiness(location._id, business));
-            console.log("out of business store");
             return h.response(newBusiness).code(200);
         },
     },
