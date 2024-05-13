@@ -102,7 +102,6 @@ export const businessApi = {
       if (location === null) {
         return Boom.notFound("No location with this id");
       }
-      console.log("location found");
       const businessPayload = request.payload as Business;
       const business = {
         title: businessPayload.title,
