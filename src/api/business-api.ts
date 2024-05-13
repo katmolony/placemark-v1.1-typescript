@@ -102,6 +102,7 @@ export const businessApi = {
       if (location === null) {
         return Boom.notFound("No location with this id");
       }
+      console.log("location found");
       const businessPayload = request.payload as Business;
       const business = {
         title: businessPayload.title,
@@ -114,9 +115,11 @@ export const businessApi = {
         address: businessPayload.address,
         lat: businessPayload.lat,
         lng: businessPayload.lng,
-       // image: fileContent,
+        //locationid: location._id,
       };
-      const newBusiness = (await db.businessStore.add(business)) as Business;
+      console.log("sending to businerss store");
+      const newBusiness = (await db.businessStore.addBusiness(location._id, business)) as Business;
+      console.log("out of business store")
       return h.response(newBusiness).code(200);
     },
   },

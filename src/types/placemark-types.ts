@@ -28,10 +28,10 @@ export type User = {
     description: string;
     lat: number;
     lng: number;
-    category: BusinessCategories[];
+    category: BusinessCategories | string;
    locationid: Location | string;
     //locationid: string;
-    reviews: Review[];
+   // reviews: Review[];
     _id: string;
   };
 
