@@ -20,6 +20,7 @@ export const db: Db = {
   locationStore: null,
   businessStore: null,
   reviewStore: null,
+  imageStore: null,
 };
 
 export function connectDb(dbType: string) {

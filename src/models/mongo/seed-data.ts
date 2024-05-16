@@ -77,7 +77,7 @@ export const seedData = {
       lat: 53.1424,
       lng: -7.6921,
       weather: "Cloudy",
-      temp: 15.0
+      temp: 15.0,
     },
     france: {
       title: "France",
@@ -129,6 +129,25 @@ export const seedData = {
       description: "Dazzling rooms and indoor pool",
       lat: 100,
       lng: 200,
+    },
+  },
+  images: {
+    _model: "Image",
+    greece1: {
+      title: "greece_1",
+      url: "greece_1",
+    },
+    greece2: {
+      title: "greece_2",
+      url: "greece_2",
+    },
+    spain1: {
+      title: "spain_1",
+      url: "spain_1",
+    },
+    spain2: {
+      title: "spain_2",
+      url: "spain_2",
     },
   },
 

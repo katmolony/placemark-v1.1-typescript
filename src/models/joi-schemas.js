@@ -64,3 +64,15 @@ export const ReviewSpecPlus = ReviewSpec.keys({
     __v: Joi.number(),
 }).label("ReviewPlus");
 export const ReviewArraySpec = Joi.array().items(ReviewSpecPlus).label("ReviewArray");
+export const ImageSpec = Joi.object()
+    .keys({
+    url: Joi.string().required().example("/placemark/locations/greece_1"),
+    title: Joi.string().required().example("Greece"),
+    locationid: IdSpec,
+})
+    .label("Image");
+export const ImageSpecPlus = ImageSpec.keys({
+    _id: IdSpec,
+    __v: Joi.number(),
+}).label("ImagePlus");
+export const ImageArraySpec = Joi.array().items(ImageSpecPlus).label("ImageArray");
