@@ -3,7 +3,7 @@ export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).descrip
 export const UserCredentialsSpec = Joi.object()
     .keys({
     email: Joi.string().email().example("homer@simpson.com").required(),
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9./$]{6,60}$')),
 })
     .label("UserCredentials");
 export const UserSpec = UserCredentialsSpec.keys({
