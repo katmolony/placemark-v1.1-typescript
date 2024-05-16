@@ -28,9 +28,9 @@ export const businessMongoStore = {
   async getBusinessById(id: string): Promise<Business | null> {
     if (id) {
       const business = await BusinessMongoose.findOne({ _id: id }).lean();
-      if (business) {
-        business.reviews = await reviewMongoStore.getReviewsByBuisnessId(business._id);
-      }
+      // if (business) {
+      //   business.reviews = await reviewMongoStore.getReviewsByBuisnessId(business._id);
+      // }
       return business;
     }
     return null;
@@ -39,9 +39,9 @@ export const businessMongoStore = {
   async getReviewsByBusinessId(id: string): Promise<Business | null> {
     if (id) {
       const business = await BusinessMongoose.findOne({ _id: id }).lean();
-      if (business) {
-        business.reviews = await reviewMongoStore.getReviewsByBuisnessId(business._id);
-      }
+      // if (business) {
+      //   business.reviews = await reviewMongoStore.getReviewsByBuisnessId(business._id);
+      // }
       return business;
     }
     return null;
