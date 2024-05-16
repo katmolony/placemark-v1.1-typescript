@@ -24,8 +24,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Log the configuration
-console.log(cloudinary.config());
+// // Log the configuration
+// console.log(cloudinary.config());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
