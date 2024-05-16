@@ -14,14 +14,28 @@ import { connectDb } from "./models/db.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { validate } from "./api/jwt-utils.js";
 import { apiRoutes } from "./api-routes.js";
+import {v2 as cloudinary} from 'cloudinary';
+
+// // add to env file
+cloudinary.config({ 
+  VITE_PUBLIC_CLOUDINARY_CLOUD_NAME: process.env.VITE_PUBLIC_CLOUDINARY_CLOUD_NAME, 
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// Log the configuration
+console.log(cloudinary.config());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const result = dotenv.config();
-if (result.error) {
-  console.log(result.error.message);
-  process.exit(1);
+function importEnvs() {
+  const result = dotenv.config();
+  if (result.error) {
+    console.log(result.error.message);
+    process.exit(1);
+  }
 }
 
 const swaggerOptions = {
@@ -32,6 +46,7 @@ const swaggerOptions = {
 };
 
 async function init() {
+  importEnvs();
   const server: Server = Hapi.server({
     port: process.env.PORT || 4000,
     routes: { cors: true },
