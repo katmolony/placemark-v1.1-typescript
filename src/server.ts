@@ -15,6 +15,7 @@ import { accountsController } from "./controllers/accounts-controller.js";
 import { validate } from "./api/jwt-utils.js";
 import { apiRoutes } from "./api-routes.js";
 import {v2 as cloudinary} from 'cloudinary';
+import bcrypt from 'bcrypt';
 
 // // add to env file
 cloudinary.config({ 
