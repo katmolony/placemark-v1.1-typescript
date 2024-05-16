@@ -5,6 +5,7 @@ import { UserSpec, UserSpecPlus, IdSpec, UserArray } from "../models/joi-schemas
 import { validationError } from "./logger.js";
 import { createToken } from "./jwt-utils.js";
 import { User } from "../types/placemark-types.js";
+import bcrypt from 'bcrypt';
 
 export const userApi = {
   find: {
@@ -55,7 +56,20 @@ export const userApi = {
         console.log("HERE");
         const userPayload = request.payload as User;
         console.log(userPayload);
-        const user = (await db.userStore.addUser(userPayload)) as User;
+
+        const hashedPassword = await bcrypt.hash(userPayload.password, 10); 
+        console.log(hashedPassword);
+
+        const userHashed = {
+          email: userPayload.email,
+          password: hashedPassword,
+          firstName: userPayload.firstName,
+          lastName: userPayload.lastName,
+          userType: userPayload.userType,
+        }
+        console.log(userHashed);
+
+        const user = (await db.userStore.addUser(userHashed)) as User;
         // if (user) {
         return h.response(user).code(201);
         // }
@@ -94,7 +108,8 @@ export const userApi = {
       try {
         const user = (await db.userStore.getUserByEmail(payload.email)) as User;
         if (user === null) return Boom.unauthorized("User not found");
-        const passwordsMatch: boolean = payload.password === user.password;
+
+        const passwordsMatch= await bcrypt.compare(payload.password, user.password); 
         if (!passwordsMatch) return Boom.unauthorized("Invalid password");
         const token = createToken(user);
         return h.response({ success: true, 
