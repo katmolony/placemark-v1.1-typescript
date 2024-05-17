@@ -55,10 +55,8 @@ export const userApi = {
       try {
         console.log("HERE");
         const userPayload = request.payload as User;
-        console.log(userPayload);
-
+        // Hash password
         const hashedPassword = await bcrypt.hash(userPayload.password, 10); 
-        console.log(hashedPassword);
 
         const userHashed = {
           email: userPayload.email,
@@ -67,8 +65,6 @@ export const userApi = {
           lastName: userPayload.lastName,
           userType: userPayload.userType,
         }
-        console.log(userHashed);
-
         const user = (await db.userStore.addUser(userHashed)) as User;
         // if (user) {
         return h.response(user).code(201);
@@ -108,7 +104,7 @@ export const userApi = {
       try {
         const user = (await db.userStore.getUserByEmail(payload.email)) as User;
         if (user === null) return Boom.unauthorized("User not found");
-
+        // Compare hashed password
         const passwordsMatch= await bcrypt.compare(payload.password, user.password); 
         if (!passwordsMatch) return Boom.unauthorized("Invalid password");
         const token = createToken(user);
