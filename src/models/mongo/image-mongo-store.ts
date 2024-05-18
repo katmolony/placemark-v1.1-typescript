@@ -10,7 +10,7 @@ export const imageMongoStore = {
   },
 
   async addImage(locationId: string, image: Image): Promise<Image | null> {
-   // business.locationid = locationId;
+    image.locationid = locationId;
     const newImage = new ImageMongoose({ ...image });
     const imageObj = await newImage.save();
     return this.getImageById(imageObj._id);

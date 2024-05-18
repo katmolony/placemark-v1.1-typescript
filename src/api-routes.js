@@ -30,4 +30,5 @@ export const apiRoutes = [
     { method: "DELETE", path: "/api/images/{id}", config: imageApi.deleteOne },
     { method: "GET", path: "/api/locations/{id}/images", config: imageApi.findByLocation },
     { method: "POST", path: "/api/locations/{id}/images", config: imageApi.makeImage },
+    { method: "POST", path: "/api/locations/{id}/imageUpload", config: imageApi.uploadImage },
 ];

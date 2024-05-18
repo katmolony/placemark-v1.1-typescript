@@ -20,10 +20,12 @@ cloudinary.config({
     VITE_PUBLIC_CLOUDINARY_CLOUD_NAME: process.env.VITE_PUBLIC_CLOUDINARY_CLOUD_NAME,
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
+    VITE_CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+    VITE_CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 // // Log the configuration
-// console.log(cloudinary.config());
+console.log("cloud config ", cloudinary.config());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 function importEnvs() {

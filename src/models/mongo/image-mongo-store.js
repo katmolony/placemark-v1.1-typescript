@@ -5,7 +5,7 @@ export const imageMongoStore = {
         return images;
     },
     async addImage(locationId, image) {
-        // business.locationid = locationId;
+        image.locationid = locationId;
         const newImage = new ImageMongoose({ ...image });
         const imageObj = await newImage.save();
         return this.getImageById(imageObj._id);
