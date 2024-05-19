@@ -51,7 +51,7 @@ const swaggerOptions = {
 async function init() {
   importEnvs();
   const server: Server = Hapi.server({
-    port: process.env.PORT || 4000,
+    port: process.env.PORT || 3000,
     routes: { cors: true },
   });
 
