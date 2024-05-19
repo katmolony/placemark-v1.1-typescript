@@ -53,7 +53,6 @@ export const userApi = {
     auth: false,
     handler: async function (request: Request, h: ResponseToolkit) {
       try {
-        console.log("HERE");
         const userPayload = request.payload as User;
         // Hash password
         const hashedPassword = await bcrypt.hash(userPayload.password, 10);
