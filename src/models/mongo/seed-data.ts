@@ -135,19 +135,19 @@ export const seedData = {
     _model: "Image",
     greece1: {
       title: "greece_1",
-      url: "greece_1",
+      url: "placemark/locations/greece_1",
     },
     greece2: {
       title: "greece_2",
-      url: "greece_2",
+      url: "placemark/locations/greece_2",
     },
     spain1: {
       title: "spain_1",
-      url: "spain_1",
+      url: "placemark/locations/spain_1",
     },
     spain2: {
       title: "spain_2",
-      url: "spain_2",
+      url: "placemark/locations/spain_2",
     },
   },
 

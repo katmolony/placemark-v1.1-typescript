@@ -3,7 +3,7 @@ import { db } from "../models/db.js";
 import { UserSpec, UserSpecPlus, IdSpec, UserArray } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 import { createToken } from "./jwt-utils.js";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 export const userApi = {
     find: {
         auth: {
@@ -106,10 +106,7 @@ export const userApi = {
                 if (!passwordsMatch)
                     return Boom.unauthorized("Invalid password");
                 const token = createToken(user);
-                return h.response({ success: true,
-                    name: `${user.firstName} ${user.lastName}`,
-                    token: token, _id: user._id
-                }).code(201);
+                return h.response({ success: true, name: `${user.firstName} ${user.lastName}`, token: token, _id: user._id }).code(201);
             }
             catch (err) {
                 return Boom.serverUnavailable("Database Error");
