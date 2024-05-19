@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/hapi__cookie": "^12.0.5",
     "@types/hapi__inert": "^5.2.10",
     "@types/hapi__vision": "^5.5.8",
@@ -39,10 +40,12 @@
     "@adminjs/hapi": "^7.1.0",
     "@hapi/boom": "^10.0.1",
     "@hapi/cookie": "^12.0.1",
-    "@hapi/hapi": "^21.3.3",
+    "@hapi/hapi": "^21.3.9",
     "@hapi/inert": "^7.1.0",
     "@hapi/vision": "^7.0.3",
     "adminjs": "^7.7.0",
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^2.2.0",
     "dotenv": "^16.4.4",
     "handlebars": "^4.7.8",
     "hapi-auth-jwt2": "^10.5.1",
@@ -52,6 +55,7 @@
     "lowdb": "^7.0.1",
     "mais-mongoose-seeder": "^1.0.7",
     "mongoose": "^8.2.0",
+    "svelte-cloudinary": "^1.3.2",
     "uuid": "^9.0.1"
   },
   "engines": {

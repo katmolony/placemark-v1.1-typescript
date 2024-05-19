@@ -3,8 +3,9 @@ import { Request, ResponseToolkit } from "@hapi/hapi";
 import { db } from "../models/db.js";
 import { UserSpec, UserSpecPlus, IdSpec, UserArray } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
-import { createToken } from "./jwt-utils.js";
+import { createToken, getUserIdFromRequest } from "./jwt-utils.js";
 import { User } from "../types/placemark-types.js";
+import bcrypt from "bcrypt";
 
 export const userApi = {
   find: {
@@ -52,10 +53,18 @@ export const userApi = {
     auth: false,
     handler: async function (request: Request, h: ResponseToolkit) {
       try {
-        console.log("HERE");
         const userPayload = request.payload as User;
-        console.log(userPayload);
-        const user = (await db.userStore.addUser(userPayload)) as User;
+        // Hash password
+        const hashedPassword = await bcrypt.hash(userPayload.password, 10);
+
+        const userHashed = {
+          email: userPayload.email,
+          password: hashedPassword,
+          firstName: userPayload.firstName,
+          lastName: userPayload.lastName,
+          userType: userPayload.userType,
+        };
+        const user = (await db.userStore.addUser(userHashed)) as User;
         // if (user) {
         return h.response(user).code(201);
         // }
@@ -74,7 +83,7 @@ export const userApi = {
     auth: {
       strategy: "jwt",
     },
-    handler: async function (request: Request, h: ResponseToolkit){
+    handler: async function (request: Request, h: ResponseToolkit) {
       try {
         await db.userStore.deleteAll();
         return h.response().code(204);
@@ -89,18 +98,16 @@ export const userApi = {
 
   authenticate: {
     auth: false,
-    handler: async function  (request: Request, h: ResponseToolkit)  {
+    handler: async function (request: Request, h: ResponseToolkit) {
       const payload = request.payload as User;
       try {
         const user = (await db.userStore.getUserByEmail(payload.email)) as User;
         if (user === null) return Boom.unauthorized("User not found");
-        const passwordsMatch: boolean = payload.password === user.password;
+        // Compare hashed password
+        const passwordsMatch = await bcrypt.compare(payload.password, user.password);
         if (!passwordsMatch) return Boom.unauthorized("Invalid password");
         const token = createToken(user);
-        return h.response({ success: true, 
-          name: `${user.firstName} ${user.lastName}`, 
-          token: token, _id: user._id 
-        }).code(201);
+        return h.response({ success: true, name: `${user.firstName} ${user.lastName}`, token: token, _id: user._id }).code(201);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }

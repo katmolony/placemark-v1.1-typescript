@@ -3,6 +3,7 @@ import { db } from "../models/db.js";
 import { UserSpec, UserSpecPlus, IdSpec, UserArray } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 import { createToken } from "./jwt-utils.js";
+import bcrypt from "bcrypt";
 export const userApi = {
     find: {
         auth: {
@@ -51,8 +52,16 @@ export const userApi = {
             try {
                 console.log("HERE");
                 const userPayload = request.payload;
-                console.log(userPayload);
-                const user = (await db.userStore.addUser(userPayload));
+                // Hash password
+                const hashedPassword = await bcrypt.hash(userPayload.password, 10);
+                const userHashed = {
+                    email: userPayload.email,
+                    password: hashedPassword,
+                    firstName: userPayload.firstName,
+                    lastName: userPayload.lastName,
+                    userType: userPayload.userType,
+                };
+                const user = (await db.userStore.addUser(userHashed));
                 // if (user) {
                 return h.response(user).code(201);
                 // }
@@ -92,14 +101,12 @@ export const userApi = {
                 const user = (await db.userStore.getUserByEmail(payload.email));
                 if (user === null)
                     return Boom.unauthorized("User not found");
-                const passwordsMatch = payload.password === user.password;
+                // Compare hashed password
+                const passwordsMatch = await bcrypt.compare(payload.password, user.password);
                 if (!passwordsMatch)
                     return Boom.unauthorized("Invalid password");
                 const token = createToken(user);
-                return h.response({ success: true,
-                    name: `${user.firstName} ${user.lastName}`,
-                    token: token, _id: user._id
-                }).code(201);
+                return h.response({ success: true, name: `${user.firstName} ${user.lastName}`, token: token, _id: user._id }).code(201);
             }
             catch (err) {
                 return Boom.serverUnavailable("Database Error");

@@ -11,6 +11,7 @@ export const db = {
     locationStore: null,
     businessStore: null,
     reviewStore: null,
+    imageStore: null,
 };
 export function connectDb(dbType) {
     switch (dbType) {

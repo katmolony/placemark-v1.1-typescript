@@ -1,5 +1,3 @@
-// import { Business } from "./business.js";
-import { reviewMongoStore } from "./review-mongo-store.js";
 import { BusinessMongoose } from "./business.js";
 export const businessMongoStore = {
     async getAllBusinesss() {
@@ -23,9 +21,9 @@ export const businessMongoStore = {
     async getBusinessById(id) {
         if (id) {
             const business = await BusinessMongoose.findOne({ _id: id }).lean();
-            if (business) {
-                business.reviews = await reviewMongoStore.getReviewsByBuisnessId(business._id);
-            }
+            // if (business) {
+            //   business.reviews = await reviewMongoStore.getReviewsByBuisnessId(business._id);
+            // }
             return business;
         }
         return null;
@@ -33,9 +31,9 @@ export const businessMongoStore = {
     async getReviewsByBusinessId(id) {
         if (id) {
             const business = await BusinessMongoose.findOne({ _id: id }).lean();
-            if (business) {
-                business.reviews = await reviewMongoStore.getReviewsByBuisnessId(business._id);
-            }
+            // if (business) {
+            //   business.reviews = await reviewMongoStore.getReviewsByBuisnessId(business._id);
+            // }
             return business;
         }
         return null;

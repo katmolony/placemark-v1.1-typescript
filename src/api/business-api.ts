@@ -114,9 +114,9 @@ export const businessApi = {
         address: businessPayload.address,
         lat: businessPayload.lat,
         lng: businessPayload.lng,
-       // image: fileContent,
+        //locationid: location._id,
       };
-      const newBusiness = (await db.businessStore.add(business)) as Business;
+      const newBusiness = (await db.businessStore.addBusiness(location._id, business)) as Business;
       return h.response(newBusiness).code(200);
     },
   },

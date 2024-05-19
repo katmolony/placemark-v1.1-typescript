@@ -7,6 +7,7 @@ import { seedData } from "./seed-data.js";
 import { locationMongoStore } from "./location-mongo-store.js";
 import { businessMongoStore } from "./business-mongo-store.js";
 import { reviewMongoStore } from "./review-mongo-store.js";
+import { imageMongoStore } from "./image-mongo-store.js";
 const seedLib = mongooseSeeder.default;
 async function seed() {
     const seeder = seedLib(Mongoose);
@@ -22,6 +23,7 @@ export function connectMongo(db) {
     db.locationStore = locationMongoStore;
     db.businessStore = businessMongoStore;
     db.reviewStore = reviewMongoStore;
+    db.imageStore = imageMongoStore;
     mongoDb.on("error", (err) => {
         console.log(`database connection error: ${err}`);
     });

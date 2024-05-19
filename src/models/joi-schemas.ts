@@ -5,7 +5,7 @@ export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).descrip
 export const UserCredentialsSpec = Joi.object()
   .keys({
     email: Joi.string().email().example("homer@simpson.com").required(),
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9./$]{6,60}$')),
   })
   .label("UserCredentials");
 
@@ -79,3 +79,18 @@ export const ReviewSpecPlus = ReviewSpec.keys({
 }).label("ReviewPlus");
 
 export const ReviewArraySpec = Joi.array().items(ReviewSpecPlus).label("ReviewArray");
+
+export const ImageSpec = Joi.object()
+  .keys({
+    url: Joi.string().required().example("/placemark/locations/greece_1"),
+    title: Joi.string().required().example("Greece"),
+    locationid: IdSpec,
+  })
+.label("Image");
+
+export const ImageSpecPlus = ImageSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("ImagePlus");
+
+export const ImageArraySpec = Joi.array().items(ImageSpecPlus).label("ImageArray");
